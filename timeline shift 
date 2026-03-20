@@ -1,0 +1,54 @@
+import streamlit as st
+import base64
+
+# 1. SETUP: High-End UI Configuration
+st.set_page_config(page_title="JROX.FUN | Mandela Series", layout="wide")
+
+# 2. THE BACKGROUND: Loading your CERN Infographic (1000000315.png)
+def set_bg_image(image_file):
+    with open(image_file, "rb") as f:
+        img_data = f.read()
+    b64_encoded = base64.b64encode(img_data).decode()
+    style = f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/png;base64,{b64_encoded}");
+        background-size: cover;
+        background-attachment: fixed;
+    }}
+    /* Hide the Streamlit menu and footer for a cleaner 'PRO' look */
+    #MainMenu {{visibility: hidden;}}
+    footer {{visibility: hidden;}}
+    header {{visibility: hidden;}}
+    </style>
+    """
+    st.markdown(style, unsafe_allow_html=True)
+
+# Call the background function
+# Make sure 1000000315.png is in your main project folder!
+try:
+    set_bg_image("1000000315.png")
+except FileNotFoundError:
+    st.error("Timeline Asset (1000000315.png) not found. Upload it to the project folder.")
+
+# 3. THE INTERFACE: 'Coming Soon' System Status
+st.markdown("<h1 style='text-align: center; color: white;'>MANDELA SERIES</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: #ff00ff;'>SYNCHRONIZING TIMELINES...</h3>", unsafe_allow_html=True)
+
+# Creating clear 'pedal' zones
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("#### 🟣 Berenstein Shift")
+    st.caption("Status: Pitch-Drift Core Isolated.")
+
+with col2:
+    st.markdown("#### 🟠 The Dark Father")
+    st.caption("Status: Higgs-Boson Drive Calibrating.")
+
+with col3:
+    st.markdown("#### 🟢 The Froot Loop")
+    st.caption("Status: Residue Filter Online.")
+
+st.write("---")
+st.markdown("<p style='text-align: center; color: gray;'>SYSTEM REBOOT: APRIL 2026</p>", unsafe_allow_html=True)
